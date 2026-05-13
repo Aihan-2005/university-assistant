@@ -19,25 +19,26 @@ export default function ClockCard() {
   const dayName = "دوشنبه";
 
   return (
-    <div className="w-full h-[95px] rounded-[30px] bg-white shadow-[0px_0px_11.2px_0px_rgba(0,0,0,0.1)] px-[18px] py-[14px]">
+    <div className="w-full h-[95px] rounded-[30px] bg-white shadow-[0px_0px_11.2px_0px_rgba(0,0,0,0.1)] px-[24px] py-[14px]">
+      
       <div className="w-full h-full flex items-center justify-between gap-[18px]">
-        {/* بخش راست - ساعت */}
-        <div className="flex items-center justify-end">
-          <span className="text-[34px] font-bold leading-[100%] text-black font-inter">
-            {hours}:{minutes}
-          </span>
-        </div>
-
-        {/* خط جداکننده عمودی */}
-        <div className="w-[1px] h-[38px] bg-[#E0E0E2]"></div>
-
-        {/* بخش چپ - تاریخ */}
+        {/* بخش راست - تاریخ */}
         <div className="flex flex-col items-end gap-[4px]">
           <span className="text-[15px] font-normal leading-[100%] text-black font-inter text-right">
             {day}
           </span>
           <span className="text-[13px] font-normal leading-[100%] text-black text-right">
             {dayName}
+          </span>
+        </div>
+
+        {/* خط جداکننده عمودی */}
+        <div className="w-[1px] h-[38px] bg-[#E0E0E2]"></div>
+
+        {/* بخش چپ - ساعت */}
+        <div className="flex items-center justify-start">
+          <span className="text-[34px] font-bold leading-[100%] text-black font-inter">
+            {hours}:{minutes}
           </span>
         </div>
       </div>
