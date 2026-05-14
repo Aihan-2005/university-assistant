@@ -20,8 +20,9 @@ export default function DashboardPage() {
         </div>
 
         <div className="w-full flex gap-[16px]">
-          <QuickAccessCard />
+          
           <NotificationsCard />
+          <QuickAccessCard />
         </div>
       </div>
 

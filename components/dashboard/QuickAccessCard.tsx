@@ -8,34 +8,61 @@ export default function QuickAccessCard() {
   ];
 
   return (
-    <div className="flex-1 h-[200px] rounded-[25px] bg-white shadow-[0px_0px_11.2px_0px_rgba(0,0,0,0.1)] p-[20px]">
-      <div className="w-full h-full flex flex-col gap-[16px]">
+    <div className="
+      flex-1 
+      h-[220px]
+      rounded-[25px]
+      bg-white
+      shadow-[0px_0px_11.2px_rgba(0,0,0,0.1)]
+      px-[24px] 
+      py-[20px]
+    ">
+      <div className="w-full h-full flex flex-col">
+
         {/* عنوان */}
-        <h2 className="text-[11px] font-bold text-black text-right">
+        <h2 className="text-[12px] font-bold text-black text-right">
           دسترسی سریع
         </h2>
 
-        {/* دکمه‌های دسترسی سریع */}
-        <div className="flex-1 flex flex-col justify-between gap-[8px]">
+        {/* دکمه‌ها */}
+        <div className="flex-1 flex flex-col justify-between mt-[14px]">
+
           {quickActions.map((action, index) => (
             <button
               key={index}
-              className="w-full h-[40px] rounded-[10px] bg-[#F5F5F5] hover:bg-[#0099CC]/10 transition-colors flex items-center justify-between px-[12px] group"
+              className="
+                w-full 
+                h-[48px]
+                rounded-[12px]
+                border border-[#DDE4EA]
+                bg-white
+                transition
+                flex items-center justify-between
+                px-[16px]
+              "
             >
-              {/* آیکون پلاس */}
-              <div className="w-[24px] h-[24px] rounded-full bg-[#0099CC] flex items-center justify-center flex-shrink-0">
-                <FaPlus size={10} className="text-white" />
-              </div>
-
-              {/* متن و ایموجی */}
-              <div className="flex items-center gap-[8px]">
-                <span className="text-[10px] font-medium text-black">
+              {/* متن + ایموجی (راست) */}
+              <div className="flex items-center gap-[10px] flex-row-reverse">
+                <span className="text-[12px] font-medium text-black text-right">
                   {action.label}
                 </span>
-                <span className="text-[16px]">{action.icon}</span>
+                <span className="text-[18px] opacity-70">{action.icon}</span>
+              </div>
+
+              {/* آیکون پلاس = چپ و نزدیک وسط */}
+              <div className="
+                w-[28px]
+                h-[28px]
+                rounded-full 
+                bg-[#0099CC]
+                flex items-center justify-center
+                ml-[6px]
+              ">
+                <FaPlus size={12} className="text-white" />
               </div>
             </button>
           ))}
+
         </div>
       </div>
     </div>

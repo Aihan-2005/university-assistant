@@ -5,103 +5,117 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 export default function CalendarCard() {
   const persianMonths = [
-    "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور",
-    "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"
+    "فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور",
+    "مهر","آبان","آذر","دی","بهمن","اسفند"
   ];
 
-  const now = new Date();
-  const currentPersianMonth = 1; // مهر = ماه دوم (index 1)
+  const currentPersianMonth = 1; // ماه جاری
   const [monthIndex, setMonthIndex] = useState(currentPersianMonth);
 
   const weekDays = ["ش", "ی", "د", "س", "چ", "پ", "ج"];
-  
-  // تقویم واقعی مهر 1405 (شروع از پنجشنبه)
+
+  // داده‌های خام کاربر → فقط اصلاح استایل انجام می‌دهیم
   const calendarDays = [
-    [null, null, null, null, 1, 2, 3],
-    [4, 5, 6, 7, 8, 9, 10],
-    [11, 12, 13, 14, 15, 16, 17],
-    [18, 19, 20, 21, 22, 23, 24],
-    [25, 26, 27, 28, 29, 30, null],
+    [29, 30, 31, 1, 2, 3, 4],
+    [5, 6, 7, 8, 9, 10, 11],
+    [12, 13, 14, 15, 16, 17, 18],
+    [19, 20, 21, 22, 23, 24, 25],
+    [26, 27, 28, 29, 30, 1, 2], // روزهای ماه بعد
   ];
 
-  const today = 23; // امروز 23 مهر
+  const today = 7; // روز امروز ماه جاری
 
   const handlePrevMonth = () => {
-    setMonthIndex((prev) => (prev === 0 ? 11 : prev - 1));
+    setMonthIndex(prev => (prev === 0 ? 11 : prev - 1));
   };
 
   const handleNextMonth = () => {
-    setMonthIndex((prev) => (prev === 11 ? 0 : prev + 1));
+    setMonthIndex(prev => (prev === 11 ? 0 : prev + 1));
+  };
+
+  /** تشخیص نوع روز */
+  const getDayType = (weekIndex, day) => {
+    if (weekIndex === 0 && day >= 29) return "prev";   // ماه قبل
+    if (weekIndex === 4 && day <= 2) return "next";    // ماه بعد
+    return "current";                                  // ماه اصلی
   };
 
   return (
-    <div className="w-full h-[300px] rounded-[30px] bg-white shadow-[0px_0px_11.2px_0px_rgba(0,0,0,0.1)] p-[15px]">
-      <div className="w-full h-full flex flex-col gap-[9px]">
-        {/* هدر تقویم */}
-        <div className="w-full h-[30px] flex items-center justify-between">
-          <button 
+    <div className="w-full h-[300px] rounded-[30px] bg-white shadow-[0_0_11px_rgba(0,0,0,0.1)] p-[15px]">
+
+      <div className="flex h-full flex-col gap-[10px]">
+
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <button
             onClick={handleNextMonth}
-            className="w-[26px] h-[26px] rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors"
+            className="w-[26px] h-[26px] rounded-full hover:bg-gray-100 flex items-center justify-center"
           >
             <FaChevronRight size={13} className="text-black" />
           </button>
 
-          <div className="h-[26px] rounded-[6px] px-[10px] flex items-center justify-center">
-            <span className="text-[14px] font-bold leading-[100%] text-black">
-              {persianMonths[monthIndex]}
-            </span>
-          </div>
+          <span className="text-[14px] font-bold text-black">
+            {persianMonths[monthIndex]}
+          </span>
 
-          <button 
+          <button
             onClick={handlePrevMonth}
-            className="w-[26px] h-[26px] rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors"
+            className="w-[26px] h-[26px] rounded-full hover:bg-gray-100 flex items-center justify-center"
           >
             <FaChevronLeft size={13} className="text-black" />
           </button>
         </div>
 
-        {/* نام روزهای هفته */}
-        <div className="w-full h-[26px] flex items-center justify-between gap-[2px]">
+        {/* Week Days */}
+        <div className="grid grid-cols-7 gap-[3px]">
           {weekDays.map((day, index) => (
-            <div
-              key={index}
-              className="flex-1 h-[26px] rounded-[4px] flex items-center justify-center"
-            >
-              <span className="text-[10px] font-medium leading-[100%] text-gray-600">
-                {day}
-              </span>
+            <div key={index} className="flex items-center justify-center h-[26px]">
+              <span className="text-[10px] font-medium text-gray-600">{day}</span>
             </div>
           ))}
         </div>
 
-        {/* شبکه روزهای ماه */}
-        <div className="w-full flex-1 flex flex-col gap-[3px]">
+        {/* Calendar */}
+        <div className="flex flex-col flex-1 gap-[3px]">
+
           {calendarDays.map((week, weekIndex) => (
-            <div key={weekIndex} className="w-full flex-1 flex items-center justify-between gap-[3px]">
-              {week.map((day, dayIndex) => (
-                <div
-                  key={dayIndex}
-                  className={`flex-1 h-full rounded-[5px] flex items-center justify-center ${
-                    day === today && monthIndex === currentPersianMonth
-                      ? "bg-[#0099CC] shadow-[0px_1px_1px_0px_rgba(0,14,51,0.05)]"
-                      : day
-                      ? "hover:bg-gray-50"
-                      : ""
-                  } transition-colors ${day ? "cursor-pointer" : ""}`}
-                >
-                  {day && (
-                    <span
-                      className={`text-[10px] font-normal leading-[100%] ${
-                        day === today && monthIndex === currentPersianMonth ? "text-white font-medium" : "text-black"
-                      }`}
-                    >
+            <div key={weekIndex} className="grid flex-1 grid-cols-7 gap-[3px]">
+
+              {week.map((day, dayIndex) => {
+                const type = getDayType(weekIndex, day);
+                const isToday = type === "current" && day === today;
+
+                /** استایل پس‌زمینه */
+                const bgClass =
+                  isToday
+                    ? "bg-[#0099CC]"
+                    : type === "current"
+                    ? "bg-[#F3F3F3]"
+                    : "bg-white";
+
+                /** استایل متن */
+                const textClass =
+                  isToday
+                    ? "text-white font-medium"
+                    : type === "current"
+                    ? "text-black"
+                    : "text-[#0099CC]";
+
+                return (
+                  <div
+                    key={dayIndex}
+                    className={`flex items-center justify-center rounded-[6px] transition ${bgClass}`}
+                  >
+                    <span className={`text-[10px] ${textClass}`}>
                       {day}
                     </span>
-                  )}
-                </div>
-              ))}
+                  </div>
+                );
+              })}
+
             </div>
           ))}
+
         </div>
       </div>
     </div>

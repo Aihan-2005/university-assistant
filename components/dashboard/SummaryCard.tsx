@@ -1,28 +1,37 @@
+"use client";
+
 import { FaChalkboardTeacher, FaBook, FaUsers } from "react-icons/fa";
 
 interface SummaryItemProps {
-  icon: React.ReactNode;
   count: number;
   label: string;
 }
 
-function SummaryItem({ icon, count, label }: SummaryItemProps) {
+function SummaryItem({ count, label }: SummaryItemProps) {
   return (
-    <div className="flex-1 h-full rounded-[10px] border border-[#E0E0E2] bg-white p-5 flex flex-col items-center justify-between">
-      <div className="w-full flex flex-col items-center gap-3">
-        {/* دایره آیکون */}
-        <div className="relative w-[70px] h-[70px] rounded-full bg-[#0099CC]/20 flex items-center justify-center">
-          {/* دایره داخلی سفید */}
-          <div className="absolute w-15 h-15 rounded-full bg-white border border-[#0099CC] flex items-center justify-center">
-            <span className="text-[22px] font-bold leading-[100%] text-[#0099CC]">
-              {count}
-            </span>
-          </div>
-        </div>
+    <div
+      className="
+        flex-1
+        h-[180px]
+        rounded-[14px]
+        border border-[#E0E0E2]
+        bg-white
+        flex flex-col
+        items-center
+        justify-center
+        pt-[14px]
+        pb-[12px]
+      "
+    >
+      {/* دایره آبی */}
+      <div className="w-[70px] h-[70px] rounded-full border-[3px] border-[#0099CC]/60 flex items-center justify-center">
+        <span className="text-[22px] font-bold text-[#0099CC] leading-none">
+          {count}
+        </span>
       </div>
 
-      {/* برچسب */}
-      <span className="text-[13px] font-normal leading-[100%] text-center text-black whitespace-pre-line">
+      {/* متن */}
+      <span className="mt-[10px] text-[13px] font-medium text-black leading-[140%] text-center whitespace-pre-line">
         {label}
       </span>
     </div>
@@ -31,31 +40,35 @@ function SummaryItem({ icon, count, label }: SummaryItemProps) {
 
 export default function SummaryCard() {
   return (
-    <div className="flex-1 h-55 rounded-[25px] bg-white shadow-[0px_0px_11.2px_0px_rgba(0,0,0,0.1)] p-[24px]">
-      <div className="w-full h-full flex flex-col gap-4">
-        {/* عنوان */}
-        <h3 className="text-[11px] font-bold leading-[100%] text-black text-right">
-          خلاصه وضعیت
-        </h3>
+    <div
+      className="
+        flex-1
+        h-[210px]
+        rounded-[25px]
+        bg-white
+        shadow-[0px_0px_11px_rgba(0,0,0,0.10)]
+      "
+    >
+      {/* عنوان */}
+      <h3 className="text-[13px] font-bold text-black text-right pt-[22px] pr-[22px]">
+        خلاصه وضعیت
+      </h3>
 
-        {/* آیتم‌ها */}
-        <div className="w-full flex-1 flex justify-between gap-2">
-          <SummaryItem
-            count={23}
-            label={"تعداد\nاساتید"}
-            icon={null}
-          />
-          <SummaryItem
-            count={56}
-            label={"تعداد\nدروس"}
-            icon={null}
-          />
-          <SummaryItem
-            count={8}
-            label={"تعداد\nکلاس‌ها"}
-            icon={null}
-          />
-        </div>
+      {/* باکس‌ها */}
+      <div
+        className="
+          flex
+          flex-1
+          items-end
+          gap-[6px]
+          px-[22px]
+          pb-[18px]
+          mt-[12px]
+        "
+      >
+        <SummaryItem count={23} label={"تعداد\nاساتید"} />
+        <SummaryItem count={56} label={"تعداد\nدروس"} />
+        <SummaryItem count={8} label={"تعداد\nکلاس‌ها"} />
       </div>
     </div>
   );
